@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalihaPolyTex.Web", "MalihaPolyTex.Web\MalihaPolyTex.Web.csproj", "{38B01745-EE6E-487A-9B02-2E55B61955E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MalihaPolyTex.Academy", "MalihaPolyTex.Academy\MalihaPolyTex.Academy.csproj", "{2A526711-BB72-4BB1-9655-DDDE0097FA32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38B01745-EE6E-487A-9B02-2E55B61955E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38B01745-EE6E-487A-9B02-2E55B61955E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38B01745-EE6E-487A-9B02-2E55B61955E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38B01745-EE6E-487A-9B02-2E55B61955E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A526711-BB72-4BB1-9655-DDDE0097FA32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A526711-BB72-4BB1-9655-DDDE0097FA32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A526711-BB72-4BB1-9655-DDDE0097FA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A526711-BB72-4BB1-9655-DDDE0097FA32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2E17C3E-C6BE-43D0-A9DB-C3125AA71A53}
+	EndGlobalSection
+EndGlobal
