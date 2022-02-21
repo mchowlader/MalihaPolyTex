@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "38b01745-ee6e-487a-9b02-2e55b61955e2": {
+      "ProjectGuid": "38b01745-ee6e-487a-9b02-2e55b61955e2",
+      "DisplayName": "MalihaPolyTex.Web",
+      "ColorIndex": 0
+    },
+    "2a526711-bb72-4bb1-9655-ddde0097fa32": {
+      "ProjectGuid": "2a526711-bb72-4bb1-9655-ddde0097fa32",
+      "DisplayName": "MalihaPolyTex.Academy",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 2
+}

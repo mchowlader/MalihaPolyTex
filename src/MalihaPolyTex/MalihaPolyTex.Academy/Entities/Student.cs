@@ -8,6 +8,7 @@ namespace MalihaPolyTex.Academy.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public int DeptId { get; set; } 
+        public Department Department { get; set; }
         public DateTime DateOfBirth { get; set; } 
     }
 }
