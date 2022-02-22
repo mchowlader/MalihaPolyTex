@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MalihaPolyTex.Academy.Utilities;
 using MalihaPolyTex.Web.Models.CourseModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -40,6 +41,56 @@ namespace MalihaPolyTex.Web.Controllers
                 }
             }
             return View(model);
+        }
+        public IActionResult Data()
+        {
+            var model = _scope.Resolve<DataCourseModel>();
+            return View(model);
+        }
+        public async Task<JsonResult> GetCourseData()
+        {
+            var dataTable = new DataTablesAjaxRequestModel(Request);
+            var model = _scope.Resolve<DataCourseModel>();
+            var data = await model.CourseListAsync(dataTable);
+
+            return Json(data);
+        }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = _scope.Resolve<EditCourseModel>();
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await model.LoadCourseDataAsync(id);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Course dosen't Load.");
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(EditCourseModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Resolve(_scope);
+                await model.UpdateCourseAsync();
+            }
+            return RedirectToAction(nameof(Data));
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var model = _scope.Resolve<DataCourseModel>();
+
+            await model.DeleteCourseAsync(id);
+            return RedirectToAction(nameof(Data));
         }
     }
 }

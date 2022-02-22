@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MalihaPolyTex.Academy.BusinessObjects;
 using MalihaPolyTex.Academy.Services;
 using System;
 using System.Threading.Tasks;
@@ -7,6 +8,10 @@ namespace MalihaPolyTex.Web.Models.CourseModel
 {
     public class CreateCourseModel
     {
+        public string Title { get; set; }
+        public int SeatCount { get; set; }
+        public int Fee { get; set; }
+
         private ICourseService _courseService;
         private ILifetimeScope _scope;
 
@@ -26,9 +31,16 @@ namespace MalihaPolyTex.Web.Models.CourseModel
             _courseService = _scope.Resolve<ICourseService>();
         }
 
-        internal Task CreateCourseAsync()
+        public async Task CreateCourseAsync()
         {
-            throw new NotImplementedException();
+            var course = new Course()
+            {
+                Title = Title,
+                SeatCount = SeatCount,
+                Fee = Fee
+            };
+
+            await _courseService.CreateCourseAsync(course);
         }
     }
 }
