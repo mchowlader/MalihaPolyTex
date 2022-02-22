@@ -10,9 +10,11 @@ namespace MalihaPolyTex.Academy.UnitOfWorks
         public ICourseRepository CourseRepository { get; private set; }
         public IDepartmentRepository DepartmentRepository { get; private set; }
         public IRegistrationRepository RegistrationRepository { get; private set; }
-        public AcademyUnitOfWork(IAcademyDbContext academyDbContext, IStudentRepository studentRepository,
-            ICourseRepository courseRepository, DepartmentRepository departmentRepository, 
-            RegistrationRepository registrationRepository)
+        public AcademyUnitOfWork(IAcademyDbContext academyDbContext, 
+            IStudentRepository studentRepository,
+            ICourseRepository courseRepository, 
+            IDepartmentRepository departmentRepository, 
+            IRegistrationRepository registrationRepository)
            : base((AcademyDbContext)academyDbContext)
         {
             StudentRepository = studentRepository;

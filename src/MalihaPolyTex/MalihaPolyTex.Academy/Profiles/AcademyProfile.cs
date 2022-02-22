@@ -8,9 +8,9 @@ namespace MalihaPolyTex.Academy.Profiles
     {
         public AcademyProfile()
         {
-            CreateMap<EO.Student, BO.Student>().ReverseMap();
+            //CreateMap<EO.Student, BO.Student>().ReverseMap();
             CreateMap<EO.Course, BO.Course>().ReverseMap();
-            CreateMap<EO.Department, BO.Department>().ReverseMap();
+            //CreateMap<EO.Department, BO.Department>().ReverseMap();
             CreateMap<EO.StudentRegistration, BO.StudentRegistration>().ReverseMap();
         }
     }

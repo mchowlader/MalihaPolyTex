@@ -1,4 +1,6 @@
-﻿namespace MalihaPolyTex.Academy.BusinessObjects
+﻿using System;
+
+namespace MalihaPolyTex.Academy.BusinessObjects
 {
     public class Department
     {

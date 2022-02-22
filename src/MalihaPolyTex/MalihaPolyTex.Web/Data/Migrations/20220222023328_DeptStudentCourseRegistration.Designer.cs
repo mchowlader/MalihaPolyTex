@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MalihaPolyTex.Web.Data.Migrations
 {
     [DbContext(typeof(AcademyDbContext))]
-    [Migration("20220221051225_DeptStudentCourseRegistration")]
+    [Migration("20220222023328_DeptStudentCourseRegistration")]
     partial class DeptStudentCourseRegistration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,9 +67,6 @@ namespace MalihaPolyTex.Web.Data.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("DeptId")
                         .HasColumnType("int");
 
@@ -78,7 +75,7 @@ namespace MalihaPolyTex.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("DeptId");
 
                     b.ToTable("Students");
                 });
@@ -113,11 +110,13 @@ namespace MalihaPolyTex.Web.Data.Migrations
 
             modelBuilder.Entity("MalihaPolyTex.Academy.Entities.Student", b =>
                 {
-                    b.HasOne("MalihaPolyTex.Academy.Entities.Department", "Department")
+                    b.HasOne("MalihaPolyTex.Academy.Entities.Department", "Dept")
                         .WithMany("StudentsList")
-                        .HasForeignKey("DepartmentId");
+                        .HasForeignKey("DeptId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Department");
+                    b.Navigation("Dept");
                 });
 
             modelBuilder.Entity("MalihaPolyTex.Academy.Entities.StudentRegistration", b =>

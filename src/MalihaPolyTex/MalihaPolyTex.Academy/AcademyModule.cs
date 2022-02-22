@@ -3,6 +3,7 @@ using MalihaPolyTex.Academy.Contexts;
 using MalihaPolyTex.Academy.Repositories;
 using MalihaPolyTex.Academy.Services;
 using MalihaPolyTex.Academy.UnitOfWorks;
+using MalihaPolyTex.Academy.Utilities;
 
 namespace MalihaPolyTex.Academy
 {
@@ -47,6 +48,9 @@ namespace MalihaPolyTex.Academy
             builder.RegisterType<DepartmentRepository>().As<IDepartmentRepository>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<RegistrationRepository>().As<IRegistrationRepository>()
+                .InstancePerLifetimeScope();            
+            
+            builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
                 .InstancePerLifetimeScope();
 
             base.Load(builder);
