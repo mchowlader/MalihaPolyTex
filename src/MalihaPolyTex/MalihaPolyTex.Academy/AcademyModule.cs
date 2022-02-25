@@ -40,15 +40,12 @@ namespace MalihaPolyTex.Academy
             builder.RegisterType<DepartmentService>().As<IDepartmentService>()
                 .InstancePerLifetimeScope();
             
-            
             builder.RegisterType<StudentRepository>().As<IStudentRepository>()
                 .InstancePerLifetimeScope();            
             builder.RegisterType<CourseRepository>().As<ICourseRepository>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<DepartmentRepository>().As<IDepartmentRepository>()
                 .InstancePerLifetimeScope();
-            builder.RegisterType<RegistrationRepository>().As<IRegistrationRepository>()
-                .InstancePerLifetimeScope();            
             
             builder.RegisterType<DateTimeUtility>().As<IDateTimeUtility>()
                 .InstancePerLifetimeScope();

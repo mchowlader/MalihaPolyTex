@@ -12,10 +12,8 @@ namespace MalihaPolyTex.Academy.Services
     public class StudentService : IStudentService
     {
         private readonly IAcademyUnitOfWork _unitOfWork;
-        //private readonly IMapper _mapper;
-        public StudentService(IAcademyUnitOfWork unitOfWork/*, IMapper mapper*/)
+        public StudentService(IAcademyUnitOfWork unitOfWork)
         {
-            //_mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
@@ -49,6 +47,27 @@ namespace MalihaPolyTex.Academy.Services
                 DateOfBirth= student.DateOfBirth,
                 DeptId = student.DeptId
             };
+        }
+
+        public async Task<IList<Student>> LoadStudentDataAsync()
+        {
+            var studentEntity = await _unitOfWork.StudentRepository.GetAllAsync();
+            var students = new List<Student>();
+
+            foreach (var entity in studentEntity)
+            {
+                var student = new Student()
+                {
+                    Id = entity.Id,
+                    Name = entity.Name,
+                    DeptId = entity.DeptId,
+                    DateOfBirth = entity.DateOfBirth
+                };
+
+                students.Add(student);
+            }
+
+            return students;
         }
 
         public async Task<(IList<Student> records, int total, int totalDisplay)> StudentListAsync(

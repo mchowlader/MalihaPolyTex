@@ -3,9 +3,13 @@ using MalihaPolyTex.Academy.Utilities;
 using MalihaPolyTex.Web.Models;
 using MalihaPolyTex.Web.Models.DepartmentModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using BO = MalihaPolyTex.Academy.BusinessObjects;
 
 namespace MalihaPolyTex.Web.Controllers
 {
@@ -19,6 +23,7 @@ namespace MalihaPolyTex.Web.Controllers
             _scope = scope;
             _logger = logger;
         }
+       
         public IActionResult Create()
         {
             var model = _scope.Resolve<CreateDepartmentModel>();
@@ -40,6 +45,7 @@ namespace MalihaPolyTex.Web.Controllers
                     _logger.LogError(ex, "Department dosen't create.");
                 }
             }
+
             return View(model);
         }
 
@@ -72,6 +78,7 @@ namespace MalihaPolyTex.Web.Controllers
                     _logger.LogError(ex, "Department dosen't Load.");
                 }
             }
+
             return View(model);
         }
 
@@ -83,6 +90,7 @@ namespace MalihaPolyTex.Web.Controllers
                 model.Resolve(_scope);
                 await model.UpdateDepartmentAsync();
             }
+
             return RedirectToAction(nameof(Data));
         }
 
@@ -98,22 +106,64 @@ namespace MalihaPolyTex.Web.Controllers
             var model = _scope.Resolve<EnrollModel>();
             return View(model);
         }
-        [HttpPost]
+
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Enroll(EnrollModel model)
         {
+
             if (ModelState.IsValid)
             {
-                model.Resolve(_scope);
-
                 try
                 {
+                    model.Resolve(_scope);
+
                     await model.EnrollStudentAsync();
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Enroll failed");
+                    _logger.LogError(ex, "Doesn't Enroll student");
                 }
             }
+            return View(model);
+        }
+
+        public async Task<IActionResult> Form()
+        {
+            var model = _scope.Resolve<FormModel>();
+            model.Resolve(_scope);
+            await model.LoadStudenDataAsync();
+            var studentList = model.StudentList;
+            var departmentList = model.DepartmentList;
+
+            var studentName = (from y in studentList
+                      select new SelectListItem()
+                      {
+                          Text = y.Name,
+                          Value = y.Id.ToString()
+                      }).ToList();
+
+
+            studentName.Insert(0, new SelectListItem
+            {
+                Text = "--Select Student--",
+                Value = String.Empty
+            });
+
+            var departmentName = (from y in departmentList
+                                  select new SelectListItem()
+                                  {
+                                      Text = y.DeptName,
+                                      Value = y.Id.ToString()
+                                  }).ToList();
+
+            departmentName.Insert(0, new SelectListItem
+            {
+                Text = "--Department--",
+                Value = String.Empty
+            });
+
+            ViewBag.messagedept = departmentName;
+            ViewBag.messagestudent = studentName;
             return View(model);
         }
     }

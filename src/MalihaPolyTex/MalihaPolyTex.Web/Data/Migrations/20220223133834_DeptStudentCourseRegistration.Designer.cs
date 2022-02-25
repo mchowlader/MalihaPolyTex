@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MalihaPolyTex.Web.Data.Migrations
 {
     [DbContext(typeof(AcademyDbContext))]
-    [Migration("20220222023328_DeptStudentCourseRegistration")]
+    [Migration("20220223133834_DeptStudentCourseRegistration")]
     partial class DeptStudentCourseRegistration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,12 +82,10 @@ namespace MalihaPolyTex.Web.Data.Migrations
 
             modelBuilder.Entity("MalihaPolyTex.Academy.Entities.StudentRegistration", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EnrollDate")
@@ -96,16 +94,11 @@ namespace MalihaPolyTex.Web.Data.Migrations
                     b.Property<bool>("IsPaymentComplete")
                         .HasColumnType("bit");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
+                    b.HasKey("CourseId", "StudentId");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentRegistrations");
+                    b.ToTable("StudentRegistration");
                 });
 
             modelBuilder.Entity("MalihaPolyTex.Academy.Entities.Student", b =>
@@ -122,13 +115,13 @@ namespace MalihaPolyTex.Web.Data.Migrations
             modelBuilder.Entity("MalihaPolyTex.Academy.Entities.StudentRegistration", b =>
                 {
                     b.HasOne("MalihaPolyTex.Academy.Entities.Course", "Course")
-                        .WithMany()
+                        .WithMany("EnrollStudents")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MalihaPolyTex.Academy.Entities.Student", "Student")
-                        .WithMany()
+                        .WithMany("EnrollCourses")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -138,9 +131,19 @@ namespace MalihaPolyTex.Web.Data.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("MalihaPolyTex.Academy.Entities.Course", b =>
+                {
+                    b.Navigation("EnrollStudents");
+                });
+
             modelBuilder.Entity("MalihaPolyTex.Academy.Entities.Department", b =>
                 {
                     b.Navigation("StudentsList");
+                });
+
+            modelBuilder.Entity("MalihaPolyTex.Academy.Entities.Student", b =>
+                {
+                    b.Navigation("EnrollCourses");
                 });
 #pragma warning restore 612, 618
         }

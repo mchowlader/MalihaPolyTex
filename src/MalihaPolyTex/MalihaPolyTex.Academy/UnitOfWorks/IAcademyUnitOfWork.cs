@@ -8,6 +8,5 @@ namespace MalihaPolyTex.Academy.UnitOfWorks
         public IStudentRepository StudentRepository { get; }
         public ICourseRepository CourseRepository { get; }
         public IDepartmentRepository DepartmentRepository { get; }
-        public IRegistrationRepository RegistrationRepository { get; }
     }
 }

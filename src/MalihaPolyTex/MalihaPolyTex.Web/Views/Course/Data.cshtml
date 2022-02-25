@@ -1,5 +1,4 @@
-﻿
-@model DataStudentModel
+﻿@model DataCourseModel
 @{
     ViewData["Title"] = "Data Table";
 }
@@ -15,7 +14,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Student Data</h1>
+                <h1>Course Data</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -33,24 +32,24 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">All Available Students</h3>
+                    <h3 class="card-title">All Available Courses</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="student" class="table table-bordered table-hover">
+                    <table id="course" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>DeptId</th>
-                                <th>DateOfBirth</th>
+                                <th>Title</th>
+                                <th>Fee</th>
+                                <th>Seat Count</th>
                                 <th style="width:200px">Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Name</th>
-                                <th>DeptId</th>
-                                <th>DateOfBirth</th>
+                                <th>Title</th>
+                                <th>Fee</th>
+                                <th>Seat Count</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -69,16 +68,16 @@
     <script>
         $(function ()
         {
-            $('#student').DataTable({
+            $('#course').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "/Student/GetStudentData",
+                "ajax": "/Course/GetCourseData",
                 "columnDefs": [
                     {
                         "orderable": false,
                         "targets": 3,
                         "render": function (data, type, row) {
-                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/Student/edit/${data}'" value='${data}'>
+                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/Course/edit/${data}'" value='${data}'>
                                         <i class="fas fa-pencil-alt">
                                         </i>
                                         Edit
@@ -94,12 +93,12 @@
                 
             });
 
-            $('#student').on('click', '.show-bs-modal', function (event) {
+            $('#course').on('click', '.show-bs-modal', function (event) {
                 var id = $(this).data("id");
                 var modal = $("#modal-default");
                 modal.find('.modal-body p').text('Are you sure you want to delete this record?')
                 $("#deleteId").val(id);
-                $("#deleteForm").attr("action", "/Student/Delete")
+                $("#deleteForm").attr("action", "/Course/Delete")
                 modal.modal('show');
             });
 

@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using MalihaPolyTex.Academy.BusinessObjects;
+﻿using MalihaPolyTex.Academy.BusinessObjects;
 using MalihaPolyTex.Academy.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MalihaPolyTex.Academy.Services
@@ -12,12 +10,11 @@ namespace MalihaPolyTex.Academy.Services
     public class DepartmentService : IDepartmentService
     {
         private readonly IAcademyUnitOfWork _unitOfWork;
-        //private readonly IMapper _mapper;
-        public DepartmentService(IAcademyUnitOfWork unitOfWork/*, IMapper mapper*/)
+        public DepartmentService(IAcademyUnitOfWork unitOfWork)
         {
-            //_mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+
         public async Task CreateDepartmentAsync(Department department)
         {
             await _unitOfWork.DepartmentRepository.AddAsync(
@@ -51,16 +48,27 @@ namespace MalihaPolyTex.Academy.Services
             return (result, departmentList.total, departmentList.totalDisplay);
         }
 
-        public async Task EnrollStudentAsync(StudentRegistration enroll)
+        public async Task EnrollStudentAsync(Course selectedCourse, Student selectedStudent, 
+            StudentRegistration enroll)
         {
-            await _unitOfWork.RegistrationRepository.AddAsync(
-                new Entities.StudentRegistration() 
-                {
-                    CourseId = enroll.CourseId,
-                    StudentId = enroll.StudentId,
-                    EnrollDate = enroll.EnrollDate,
-                    IsPaymentComplete = enroll.IsPaymentComplete
-                });
+            var courseEntity = await _unitOfWork.CourseRepository.GetByIdAsync(selectedCourse.Id);
+            var studentEntity = await _unitOfWork.StudentRepository.GetByIdAsync(selectedStudent.Id);
+
+            if (courseEntity == null)
+                throw new InvalidOperationException("Course was not found");
+            if (courseEntity.EnrollStudents == null)
+            {
+                courseEntity.EnrollStudents = new List<Entities.StudentRegistration>();
+            }
+
+            courseEntity.EnrollStudents.Add(new Entities.StudentRegistration()
+            {
+                IsPaymentComplete = enroll.IsPaymentComplete,
+                EnrollDate = enroll.EnrollDate,
+                CourseId = enroll.CourseId,
+                StudentId = enroll.StudentId
+            });
+
             await _unitOfWork.SaveAsync();
         }
 
@@ -74,6 +82,27 @@ namespace MalihaPolyTex.Academy.Services
                 Id = department.Id,
                 DeptName= department.DeptName
             };
+        }
+
+        public async Task<IEnumerable<Department>> LoadDepartmentDataAsync()
+        {
+            var DepartmentList = new List<Department>();
+            var departmentEntity = await _unitOfWork.DepartmentRepository.GetAllAsync();
+
+            if (departmentEntity == null) return null;
+
+            foreach(var dept in departmentEntity)
+            {
+                var department = new Department()
+                {
+                    DeptName = dept.DeptName,
+                    Id = dept.Id
+                };
+
+                DepartmentList.Add(department);
+            }
+
+            return DepartmentList;
         }
 
         public async Task UpdateDepartmentAsync(Department department)

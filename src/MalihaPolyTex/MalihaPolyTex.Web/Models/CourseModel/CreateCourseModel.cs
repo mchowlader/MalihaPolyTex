@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using MalihaPolyTex.Academy.BusinessObjects;
 using MalihaPolyTex.Academy.Services;
-using System;
 using System.Threading.Tasks;
 
 namespace MalihaPolyTex.Web.Models.CourseModel

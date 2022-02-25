@@ -1,0 +1,77 @@
+﻿@model FormModel
+@{
+    ViewData["Title"] = "View Form";
+}
+
+<section class="bootstrap-select">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Check</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <h6>Student Name</h6>
+                                <fieldset class="form-group studentDropdown">
+                                    <select class="form-control" asp-items="@ViewBag.messagestudent"></select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <h6>Department Name</h6>
+                                <fieldset disabled>
+                                   <div class="form-group">
+                                       <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+                                   </div>
+                               </fieldset>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <h6>Course Name</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select" id="basicSelect">
+                                        <option>IT</option>
+                                        <option>Blade Runner</option>
+                                        <option>Thor Ragnarok</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <h6>Payment Status</h6>
+                                <fieldset class="form-group">
+                                    <select class="form-select" disabled="disabled" id="disabledSelect">
+                                        <option>Paid</option>
+                                        <option>Due</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    //Bind State dropdownlist
+    $(".studentDropdown").change(function () {
+        var studentId = $(this).val();
+        $.getJSON("/department/form", { Id: studentId }, function (data) {
+            var item = "";
+            $(".stateDropdown").find('option').not(':first').remove();
+            $(".cityDropdown").find('option').not(':first').remove();
+            item += '<option value="">Select State</option>'
+            $.each(data, function (i, city) {
+                item += '<option value="' + city.value + '">' + city.text + '</option>'
+            });
+            $(".stateDropdown").html(item);
+        });
+    });
+</script>

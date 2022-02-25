@@ -12,5 +12,6 @@ namespace MalihaPolyTex.Academy.Services
         Task<Student> LoadStudentDataAsync(int id);
         Task UpdateStudentAsync(Student student);
         Task DeleteStudentAsync(int id);
+        Task<IList<Student>> LoadStudentDataAsync();
     }
 }

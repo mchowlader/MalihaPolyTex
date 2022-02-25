@@ -29,8 +29,7 @@ namespace MalihaPolyTex.Web.Models.StudentModel
             _scope = scope;
             _studentService = _scope.Resolve<IStudentService>();
         }
-
-        internal async Task LoadStudentDataAsync(int id)
+        public async Task LoadStudentDataAsync(int id)
         {
             var studet = await _studentService.LoadStudentDataAsync(id);
             if(studet != null)
@@ -41,7 +40,6 @@ namespace MalihaPolyTex.Web.Models.StudentModel
                 DateOfBirth = studet.DateOfBirth;
             }
         }
-
         public async Task UpdateStudentAsync()
         {
             var student = new Student()

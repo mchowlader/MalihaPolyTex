@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MalihaPolyTex.Web.Models;
 using MalihaPolyTex.Web.Models.CourseModel;
 using MalihaPolyTex.Web.Models.DepartmentModel;
 using MalihaPolyTex.Web.Models.StudentModel;
@@ -30,6 +31,8 @@ namespace MalihaPolyTex.Web
             builder.RegisterType<CreateStudentModel>().AsSelf();
             builder.RegisterType<DataStudentModel>().AsSelf();
             builder.RegisterType<EditStudentModel>().AsSelf();
+
+            builder.RegisterType<FormModel>().AsSelf();
 
             base.Load(builder);
         }

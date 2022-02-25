@@ -4,26 +4,25 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h3>Create Student</h3>
 
-<h4>CreateStudentModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" asp-controller="Student" method="post" asp-antiforgery="true">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Name</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeptId" class="control-label"></label>
+                <label asp-for="DeptId" class="control-label">Department Id</label>
                 <input asp-for="DeptId" class="form-control" />
                 <span asp-validation-for="DeptId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
+                <label asp-for="DateOfBirth" class="control-label">Birth Date</label>
                 <input asp-for="DateOfBirth" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>

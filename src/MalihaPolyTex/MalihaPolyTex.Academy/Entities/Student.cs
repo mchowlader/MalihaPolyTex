@@ -1,5 +1,6 @@
 ﻿using DevSkill.Data;
 using System;
+using System.Collections.Generic;
 
 namespace MalihaPolyTex.Academy.Entities
 {
@@ -10,5 +11,6 @@ namespace MalihaPolyTex.Academy.Entities
         public int DeptId { get; set; } 
         public Department Dept { get; set; }
         public DateTime DateOfBirth { get; set; } 
+        public List<StudentRegistration> EnrollCourses { get; set; }
     }
 }

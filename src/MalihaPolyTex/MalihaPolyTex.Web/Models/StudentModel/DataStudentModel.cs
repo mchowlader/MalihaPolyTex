@@ -47,7 +47,6 @@ namespace MalihaPolyTex.Web.Models.StudentModel
                         }).ToList(),
             };
         }
-
         public async Task DeleteStudentAsync(int id)
         {
             await _studentService.DeleteStudentAsync(id);

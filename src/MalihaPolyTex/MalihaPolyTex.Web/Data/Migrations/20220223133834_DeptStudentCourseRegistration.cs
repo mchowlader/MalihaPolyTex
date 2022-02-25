@@ -57,11 +57,9 @@ namespace MalihaPolyTex.Web.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentRegistrations",
+                name: "StudentRegistration",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     EnrollDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -69,15 +67,15 @@ namespace MalihaPolyTex.Web.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentRegistrations", x => x.Id);
+                    table.PrimaryKey("PK_StudentRegistration", x => new { x.CourseId, x.StudentId });
                     table.ForeignKey(
-                        name: "FK_StudentRegistrations_Courses_CourseId",
+                        name: "FK_StudentRegistration_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentRegistrations_Students_StudentId",
+                        name: "FK_StudentRegistration_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -85,13 +83,8 @@ namespace MalihaPolyTex.Web.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentRegistrations_CourseId",
-                table: "StudentRegistrations",
-                column: "CourseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentRegistrations_StudentId",
-                table: "StudentRegistrations",
+                name: "IX_StudentRegistration_StudentId",
+                table: "StudentRegistration",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -103,7 +96,7 @@ namespace MalihaPolyTex.Web.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StudentRegistrations");
+                name: "StudentRegistration");
 
             migrationBuilder.DropTable(
                 name: "Courses");

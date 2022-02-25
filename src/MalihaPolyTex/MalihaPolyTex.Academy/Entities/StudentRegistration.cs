@@ -3,9 +3,8 @@ using System;
 
 namespace MalihaPolyTex.Academy.Entities
 {
-    public class StudentRegistration : IEntity<int>
+    public class StudentRegistration
     {
-        public int Id { get; set; }
         public Student Student { get; set; }
         public int StudentId { get; set; }
         public Course Course { get; set; }

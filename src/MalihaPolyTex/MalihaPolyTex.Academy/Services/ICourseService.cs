@@ -12,5 +12,6 @@ namespace MalihaPolyTex.Academy.Services
         Task<Course> LoadCourseDataAsync(int id);
         Task UpdateCourseAsync(Course course);
         Task DeleteCourseAsync(int id);
+        Task<IList<Course>> LoadCourseDataAsync();
     }
 }

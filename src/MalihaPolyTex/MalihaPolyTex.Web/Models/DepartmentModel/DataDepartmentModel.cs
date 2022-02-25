@@ -1,9 +1,6 @@
 ﻿using Autofac;
-using MalihaPolyTex.Academy.BusinessObjects;
 using MalihaPolyTex.Academy.Services;
 using MalihaPolyTex.Academy.Utilities;
-using MalihaPolyTex.Web.Models;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 

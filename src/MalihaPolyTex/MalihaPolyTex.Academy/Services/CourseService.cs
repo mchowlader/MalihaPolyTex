@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using MalihaPolyTex.Academy.BusinessObjects;
+﻿using MalihaPolyTex.Academy.BusinessObjects;
 using MalihaPolyTex.Academy.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MalihaPolyTex.Academy.Services
@@ -12,10 +10,8 @@ namespace MalihaPolyTex.Academy.Services
     public class CourseService : ICourseService
     {
         private readonly IAcademyUnitOfWork _unitOfWork;
-        //private readonly IMapper _mapper;
-        public CourseService(IAcademyUnitOfWork unitOfWork/*, IMapper mapper*/)
+        public CourseService(IAcademyUnitOfWork unitOfWork)
         {
-            //_mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
@@ -69,6 +65,25 @@ namespace MalihaPolyTex.Academy.Services
                 Fee = courseEntity.Fee,
                 SeatCount = courseEntity.SeatCount
             };
+        }
+
+        public async Task<IList<Course>> LoadCourseDataAsync()
+        {
+            var courseEntity = await _unitOfWork.CourseRepository.GetAllAsync();
+            var courses = new List<Course>();
+            foreach(var entity in courseEntity)
+            {
+                var course = new Course()
+                {
+                    Id = entity.Id,
+                    Title = entity.Title,
+                    Fee = entity.Fee,
+                    SeatCount = entity.SeatCount
+                };
+                courses.Add(course);
+            }
+
+            return courses;
         }
 
         public async Task UpdateCourseAsync(Course course)

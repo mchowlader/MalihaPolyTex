@@ -12,6 +12,7 @@ namespace MalihaPolyTex.Academy.Services
         Task<Department> LoadDepartmentDataAsync(int id);
         Task UpdateDepartmentAsync(Department department);
         Task DeleteDepartmentAsync(int id);
-        Task EnrollStudentAsync(StudentRegistration enroll);
+        Task EnrollStudentAsync(Course selectedCourse, Student selectedStudent, StudentRegistration enroll);
+        Task<IEnumerable<Department>> LoadDepartmentDataAsync();
     }
 }
