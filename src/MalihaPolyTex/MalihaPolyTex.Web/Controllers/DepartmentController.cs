@@ -133,7 +133,6 @@ namespace MalihaPolyTex.Web.Controllers
             model.Resolve(_scope);
             await model.LoadStudenDataAsync();
             var studentList = model.StudentList;
-            var departmentList = model.DepartmentList;
 
             var studentName = (from y in studentList
                       select new SelectListItem()
@@ -149,20 +148,22 @@ namespace MalihaPolyTex.Web.Controllers
                 Value = String.Empty
             });
 
-            var departmentName = (from y in departmentList
-                                  select new SelectListItem()
-                                  {
-                                      Text = y.DeptName,
-                                      Value = y.Id.ToString()
-                                  }).ToList();
+            var courseList = model.CourseList;
 
-            departmentName.Insert(0, new SelectListItem
+            var courseName = (from y in courseList
+                               select new SelectListItem()
+                               {
+                                   Text = y.Title,
+                                   Value = String.Empty
+                               }).ToList();
+
+            courseName.Insert(0, new SelectListItem
             {
-                Text = "--Department--",
+                Text = "--Select course--",
                 Value = String.Empty
             });
 
-            ViewBag.messagedept = departmentName;
+            ViewBag.messageCourse = courseName;
             ViewBag.messagestudent = studentName;
             return View(model);
         }
